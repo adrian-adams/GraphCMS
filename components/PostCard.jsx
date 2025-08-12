@@ -12,40 +12,47 @@ const DateSVG = () => {
 
 const PostCard = ({post}) => {
   return (
-    console.log(post),
-    <div className='bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8'>
-        <div className='relative overflow-hidden shadow-md pb-80 mb-6'>
+    <div className='m-4 bg-white text-center shadow-lg rounded-lg p-0 lg:p-4'>
+      <div className='relative overflow-hidden shadow-md pb-80 mb-6'>
+        <img 
+          src={post.featuredImage.url} 
+          alt={post.title} 
+          className='object-top absolute h-full w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg'
+        />
+      </div>  
+      <h1 className='transition duration-200 text-center cursor-pointer hover:text-blue-300 text-3xl font-semibold inline'>
+        <Link href={`/post/${post.slug}`}>
+          {post.title}
+        </Link>
+      </h1>
+      <div className='block lg:flex flex-col items-center justify-center w-full mt-4'>
+        <div className='flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8 items-center'>
           <img 
-            src={post.featuredImage.url} 
-            alt={post.title} 
-            className='object-top absolute h-80 w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg'
+            src={post.author.photo.url}
+            alt={post.author.name}
+            width="30px"
+            height="30px"
+            className='align-middle rounded-full'
           />
-        </div>  
-        <h1 className='transition duration-100 text-center mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold inline'>
-          <Link href={`/post/${post.slug}`}>
-            {post.title}
-          </Link>
-        </h1>
-        <div className='block lg:flex text-center items-center justify-center mb-8 w-full'>
-          <div className='flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8 items-center'>
-            <img 
-              src={post.author.photo.url}
-              alt={post.author.name}
-              width="30px"
-              height="30px"
-              className='align-middle rounded-full'
-            />
-            <p className='inline align-middle text-gray-700 ml-2 text-lg'>
-              {post.author.name}
-            </p>
-          </div>
-          <div className='font-medium text-gray-700'>
-                <DateSVG className='h-6 w-6 inline mr-2' />
-                <span className='align-middle'>
-                  {moment(post.createdAt).format('MMM DD, YYYY')}
-                </span>
+          <p className='inline align-middle text-gray-700 ml-2 text-lg'>
+            {post.author.name}
+          </p>
+        </div>
+        <div className='font-medium text-gray-700 flex flex-row items-center justify-center gap-2'>
+              <DateSVG className='h-6 w-6' />
+              <span className='align-middle'>
+                {moment(post.createdAt).format('MMM DD, YYYY')}
+              </span>
+        </div>
+        <div className='text-gray-700 font-normal mb-8 p-5 md:px-10 py-6'>
+          <p>{post.excerpt}</p>
+          <div>
+            <Link href={`/post/${post.slug}`} className='text-blue-500 hover:text-blue-700 transition duration-200'>
+              <span className='transition duraiton-500 transform hover:-translate-y-1 inline-block bg-blue-300 px-4 py-2 rounded-3xl font-bold my-4'>Continue Reading</span>
+            </Link>
           </div>
         </div>
+      </div>
     </div>
   )
 }
